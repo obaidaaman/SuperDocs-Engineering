@@ -18,6 +18,8 @@ async def upload_document(file: UploadFile = File(...)):
     with open(temp_path, "wb") as buffer:
         shutil.copyfileobj(file.file, buffer)
         
+
+        # Becasue we dont want duplicate document.
     file_hash = compute_sha256(temp_path)
     
     # Checking if we already have it
