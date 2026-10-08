@@ -31,12 +31,12 @@ def parse_pdf_document(file_path: str, filename: str) -> List[Dict[str, Any]]:
         with open(file_path, "rb") as f:
             response = client.parse.run(input=f, output="elements")
         
-        # We need to adapt the response into our standard block format
+        # Pooint to be noted --> I adapted the response into our standard block format.
         blocks = []
         # I get a list of elements directly or inside a result 
         elements = response.elements if hasattr(response, 'elements') else response
         
-        # added the return for diff response format
+        #  I added the return for diff response format
         if not hasattr(elements, '__iter__') or isinstance(elements, dict):
             elements = getattr(elements, 'elements', getattr(response, 'items', response))
             
@@ -79,3 +79,11 @@ def parse_pdf_document(file_path: str, filename: str) -> List[Dict[str, Any]]:
     except Exception as e:
         print(f"Error parsing document via Unstructured Transform API: {e}")
         raise e
+
+
+# {
+#     "type" : "",
+#     "page_no" : 1,
+#     "text" : "text"
+#     "block_index"
+# }
